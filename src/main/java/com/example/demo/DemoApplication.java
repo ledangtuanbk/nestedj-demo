@@ -57,9 +57,6 @@ public class DemoApplication {
         return encryptor;
     }
 
-    @Value("${alert.url}")
-    private String alertUrl;
-
     @PersistenceContext
     EntityManager entityManager;
 
