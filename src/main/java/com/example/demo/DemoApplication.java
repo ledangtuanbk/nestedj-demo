@@ -68,4 +68,9 @@ public class DemoApplication {
         return JpaNestedNodeRepositoryFactory.create(configuration);
     }
 
+    @Bean
+    public JpaTestHelper jpaTestHelper() {
+        return new JpaTestHelper(entityManager);
+    }
+
 }

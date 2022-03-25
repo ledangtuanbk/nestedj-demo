@@ -29,37 +29,44 @@ public class TestNodeService {
 
         TestNode testNodeB = new TestNode();
         testNodeB.setName("B");
-        testNodeNestedNodeRepository.insertAsFirstChildOf(testNodeB, testNodeA);
+        testNodeNestedNodeRepository.insertAsLastChildOf(testNodeB, testNodeA);
+
+        TestNode testNodeC = new TestNode();
+        testNodeC.setName("C");
+        testNodeNestedNodeRepository.insertAsLastChildOf(testNodeC, testNodeA);
 
         TestNode testNodeD = new TestNode();
         testNodeD.setName("D");
-        testNodeNestedNodeRepository.insertAsFirstChildOf(testNodeD, testNodeB);
-//        TestNode testNodeE = new TestNode();
-//        testNodeB.setName("E");
-//        testNodeNestedNodeRepository.insertAsNextSiblingOf(testNodeE, testNodeB);
+        testNodeNestedNodeRepository.insertAsLastChildOf(testNodeD, testNodeB);
 
-//        TestNode testNodeC = new TestNode();
-//        testNodeC.setName("C");
-//        testNodeNestedNodeRepository.insertAsLastChildOf(testNodeC, testNodeA);
-//        TestNode testNodeF = new TestNode();
-//        testNodeF.setName("F");
-//        testNodeNestedNodeRepository.insertAsLastChildOf(testNodeF, testNodeC);
-//        TestNode testNodeG = new TestNode();
-//        testNodeG.setName("G");
-//        testNodeNestedNodeRepository.insertAsLastChildOf(testNodeG, testNodeC);
-//        TestNode testNodeI = new TestNode();
-//        testNodeI.setName("I");
-//        testNodeNestedNodeRepository.insertAsLastChildOf(testNodeI, testNodeC);
-//
-//
-//        TestNode testNodeH = new TestNode();
-//        testNodeH.setName("H");
-//        testNodeNestedNodeRepository.insertAsLastChildOf(testNodeH, testNodeG);
+        TestNode testNodeE = new TestNode();
+        testNodeE.setName("E");
+        testNodeNestedNodeRepository.insertAsLastChildOf(testNodeE, testNodeB);
+
+        TestNode testNodeF = new TestNode();
+        testNodeF.setName("F");
+        testNodeNestedNodeRepository.insertAsLastChildOf(testNodeF, testNodeC);
+        TestNode testNodeG = new TestNode();
+        testNodeG.setName("G");
+        testNodeNestedNodeRepository.insertAsLastChildOf(testNodeG, testNodeC);
+        TestNode testNodeI = new TestNode();
+        testNodeI.setName("I");
+        testNodeNestedNodeRepository.insertAsLastChildOf(testNodeI, testNodeC);
+
+        TestNode testNodeH = new TestNode();
+        testNodeH.setName("H");
+        testNodeNestedNodeRepository.insertAsLastChildOf(testNodeH, testNodeG);
 
         return testNodeB;
     }
 
+
+    @Autowired
+    JpaTestHelper jpaTestHelper;
+
     @Transactional
-    public void findNode(String name) {
+    public TestNode findNode(String symbol) {
+        return jpaTestHelper.findNode(symbol);
     }
+
 }

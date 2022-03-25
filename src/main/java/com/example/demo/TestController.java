@@ -22,8 +22,8 @@ public class TestController {
     }
 
     @GetMapping("/find-node/{name}")
-    public void findNode(@PathVariable("name") String name) {
-        testNodeService.findNode(name);
+    public TestNode findNode(@PathVariable("name") String name) {
+        return testNodeService.findNode(name);
     }
 
     @PostMapping("/create-node")
