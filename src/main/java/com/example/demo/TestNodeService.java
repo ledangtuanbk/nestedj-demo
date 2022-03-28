@@ -94,4 +94,9 @@ public class TestNodeService {
         Tree<Long, TestNode> tree = testNodeNestedNodeRepository.getTree(testNode);
         return tree;
     }
+
+    @Transactional
+    public void buildTree() {
+        testNodeNestedNodeRepository.rebuildTree();
+    }
 }

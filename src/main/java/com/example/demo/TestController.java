@@ -21,6 +21,11 @@ public class TestController {
         return testNodeService.initTree();
     }
 
+    @GetMapping("/build-tree")
+    public void buildTree() {
+        testNodeService.buildTree();
+    }
+
     @GetMapping("/get/{value}")
     public List<User> get(@PathVariable("value") Long value) {
         System.out.println("value " + value);
