@@ -2,7 +2,6 @@ package com.example.demo;
 
 public class TestNodeInput {
     private String name;
-    private String discriminator;
 
     public TestNodeInput() {
     }
@@ -13,13 +12,5 @@ public class TestNodeInput {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDiscriminator() {
-        return discriminator;
-    }
-
-    public void setDiscriminator(String discriminator) {
-        this.discriminator = discriminator;
     }
 }

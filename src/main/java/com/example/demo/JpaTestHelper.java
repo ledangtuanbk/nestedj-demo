@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
 public class JpaTestHelper implements TestHelper {
 
@@ -44,7 +45,7 @@ public class JpaTestHelper implements TestHelper {
 
     @Override
     public void resetParent(String symbol) {
-        this.em.createQuery("update TestNode set parentId = null where name='"+symbol+"' ").executeUpdate();
+        this.em.createQuery("update TestNode set parentId = null where name='" + symbol + "' ").executeUpdate();
     }
 
     @Override
@@ -67,5 +68,23 @@ public class JpaTestHelper implements TestHelper {
 
     public void save(TestNode node) {
         em.persist(node);
+    }
+
+    public List<TestNode> findNodeByLevel(Integer level) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<TestNode> select = cb.createQuery(TestNode.class);
+        Root<TestNode> root = select.from(TestNode.class);
+        select.where(cb.equal(root.get("treeLevel"), level));
+        List<TestNode> resultList = em.createQuery(select).getResultList();
+        return resultList;
+    }
+
+    public TestNode findNodeById(Long id) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<TestNode> select = cb.createQuery(TestNode.class);
+        Root<TestNode> root = select.from(TestNode.class);
+        select.where(cb.equal(root.get("id"), id));
+        TestNode singleResult = em.createQuery(select).getSingleResult();
+        return singleResult;
     }
 }

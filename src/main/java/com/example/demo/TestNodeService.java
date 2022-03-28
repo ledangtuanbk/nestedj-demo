@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.exsio.nestedj.NestedNodeRepository;
+import pl.exsio.nestedj.model.Tree;
 
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -22,7 +24,7 @@ public class TestNodeService {
     }
 
     @Transactional
-    public TestNode createNode(TestNodeInput testNodeInput) {
+    public TestNode initTree() {
         TestNode testNodeA = new TestNode();
         testNodeA.setName("A");
         testNodeNestedNodeRepository.insertAsFirstRoot(testNodeA);
@@ -65,8 +67,31 @@ public class TestNodeService {
     JpaTestHelper jpaTestHelper;
 
     @Transactional
-    public TestNode findNode(String symbol) {
-        return jpaTestHelper.findNode(symbol);
+    public List<TestNode> findNode(String symbol) {
+        TestNode node = jpaTestHelper.findNode(symbol);
+        List<TestNode> testNodes = testNodeNestedNodeRepository.getChildren(node);
+        return testNodes;
     }
 
+    @Transactional
+    public List<TestNode> findNodeByLevel(Integer level) {
+        List<TestNode> nodeByLevel = jpaTestHelper.findNodeByLevel(level);
+
+        return nodeByLevel;
+    }
+
+    @Transactional
+    public TestNode createNewNode(TestNodeInput testNodeInput, Long parentId) {
+        TestNode testNode = new TestNode();
+        testNode.setName(testNodeInput.getName());
+        TestNode parentNode = jpaTestHelper.findNodeById(parentId);
+        testNodeNestedNodeRepository.insertAsLastChildOf(testNode, parentNode);
+        return testNode;
+    }
+
+    public Tree<Long, TestNode> getTree(Long id) {
+        TestNode testNode = jpaTestHelper.findNodeById(id);
+        Tree<Long, TestNode> tree = testNodeNestedNodeRepository.getTree(testNode);
+        return tree;
+    }
 }
