@@ -3,8 +3,6 @@ package com.example.demo;
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,17 +14,13 @@ import pl.exsio.nestedj.config.jpa.factory.JpaNestedNodeRepositoryFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class DemoApplication {
 
 
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         SpringApplication.run(DemoApplication.class, args);
-        Logger logger = LoggerFactory.getLogger(DemoApplication.class);
-        logger.info(LocalDateTime.now().toString());
     }
 
     @Bean
